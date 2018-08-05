@@ -34,7 +34,7 @@ public class SwingFrame extends JFrame {
 
 		setVisible(true);
 
-		setMinimumSize(new Dimension(getWidth() + 380, 500));
+		setMinimumSize(new Dimension(getWidth() + 500, 500));
 
 		setLocationRelativeTo(null);
 	}
