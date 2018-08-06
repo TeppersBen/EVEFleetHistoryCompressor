@@ -65,12 +65,14 @@ public class Table extends JTable {
 	public void resizeColumnWidth() {
 		TableCellRenderer renderer = null;
 		Component comp = null;
-		int minWidth = 15;
+		int minWidth = 0;		
+		
 		for (int column = 0; column < getColumnCount(); column++) {
+			minWidth = 0;
 			for (int row = 0; row < getRowCount(); row++) {
 				renderer = getCellRenderer(row, column);
 				comp = prepareRenderer(renderer, row, column);
-				minWidth = Math.max(comp.getPreferredSize().width + 30, minWidth);
+				minWidth = Math.max(comp.getPreferredSize().width + 1, minWidth);
 			}
 			getColumnModel().getColumn(column).setPreferredWidth(minWidth);
 		}
