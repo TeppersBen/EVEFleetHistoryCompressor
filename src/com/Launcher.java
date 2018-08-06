@@ -19,9 +19,9 @@ public class Launcher {
 			Logger.printErr();
 		});
 		
-		ThreadHandler.get_original_eve_history_log_location_checker(
-			Settings.File_Transporter_EVE_to_Unfinished_Thread_Speed
-		).start();
+		ThreadHandler
+		.get_original_eve_history_log_location_checker(Settings.File_Transporter_EVE_to_Unfinished_Thread_Speed)
+		.start();
 	}
 
 }
