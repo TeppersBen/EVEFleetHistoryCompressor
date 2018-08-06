@@ -20,7 +20,7 @@ public class DatabaseHandler {
 	
 	private static TreeMap<String, Double> convertDataToMap(String fileName) {
 		TreeMap<String, Double> map = new TreeMap<>();
-		try (InputStream is = DatabaseHandler.class.getResourceAsStream("/resources/" + fileName);
+		try (InputStream is = DatabaseHandler.class.getResourceAsStream("/database/" + fileName);
 			 InputStreamReader isr = new InputStreamReader(is);
 			 BufferedReader br = new BufferedReader(isr);) {
 			
