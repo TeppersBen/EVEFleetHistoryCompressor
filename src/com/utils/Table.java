@@ -1,5 +1,6 @@
 package com.utils;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.util.regex.PatternSyntaxException;
 
@@ -7,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 public class Table extends JTable {
@@ -59,4 +61,18 @@ public class Table extends JTable {
     	}
     	sorter.setRowFilter(filter);
     }
+	
+	public void resizeColumnWidth() {
+		TableCellRenderer renderer = null;
+		Component comp = null;
+		int minWidth = 15;
+		for (int column = 0; column < getColumnCount(); column++) {
+			for (int row = 0; row < getRowCount(); row++) {
+				renderer = getCellRenderer(row, column);
+				comp = prepareRenderer(renderer, row, column);
+				minWidth = Math.max(comp.getPreferredSize().width + 30, minWidth);
+			}
+			getColumnModel().getColumn(column).setPreferredWidth(minWidth);
+		}
+	}
 }

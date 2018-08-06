@@ -1,19 +1,16 @@
 package com.handlers;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 
 import com.entities.DataSet;
 import com.entities.LogLine;
 import com.entities.Player;
 import com.utils.Formatter;
 import com.utils.PaymentCalculator;
+import com.utils.Table;
 
 public class ListHandler {
 	
@@ -51,7 +48,7 @@ public class ListHandler {
 		return compressedList;
 	}
 	
-	public static void fillEVELootListTableUsingLogList(List<LogLine> list, JTable table) {
+	public static void fillEVELootListTableUsingLogList(List<LogLine> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 		
@@ -62,10 +59,10 @@ public class ListHandler {
 			model.addRow(data);
 		}
 
-		resizeColumnWidth(table);
+		table.resizeColumnWidth();
 	}
 	
-	public static void fillEVEOveralEarningLootList(List<LogLine> list, JTable table) {
+	public static void fillEVEOveralEarningLootList(List<LogLine> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 		
@@ -80,10 +77,10 @@ public class ListHandler {
 			);
 		}
 
-		resizeColumnWidth(table);
+		table.resizeColumnWidth();
 	}
 	
-	public static void fillEVEPlayerStatsListUsingPlayerList(List<Player> list, JTable table) {
+	public static void fillEVEPlayerStatsListUsingPlayerList(List<Player> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		Object[] data;
 		
@@ -94,10 +91,10 @@ public class ListHandler {
 			model.addRow(data);
 		}
 		
-		resizeColumnWidth(table);
+		table.resizeColumnWidth();
 	}
 	
-	public static void fillEVEPlayerStatsListUsingLogList(List<LogLine> list, JTable table) {
+	public static void fillEVEPlayerStatsListUsingLogList(List<LogLine> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<Player> players = PaymentCalculator.getPayments(list);
 		Object[] data;
@@ -109,23 +106,10 @@ public class ListHandler {
 			model.addRow(data);
 		}
 		
-		resizeColumnWidth(table);
-	}
-
-	private static void resizeColumnWidth(JTable table) {
-		final TableColumnModel columnModel = table.getColumnModel();
-		for (int column = 0; column < table.getColumnCount(); column++) {
-			int width = 15; // Min width
-			for (int row = 0; row < table.getRowCount(); row++) {
-				TableCellRenderer renderer = table.getCellRenderer(row, column);
-				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width + 30, width);
-			}
-			columnModel.getColumn(column).setPreferredWidth(width);
-		}
+		table.resizeColumnWidth();
 	}
 	
-	public static void fillEVELootFilesList(List<DataSet> list, JTable table) {
+	public static void fillEVELootFilesList(List<DataSet> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		model.setRowCount(0);
@@ -134,7 +118,7 @@ public class ListHandler {
 			model.addRow(new String[] { data.getFileName() });
 		}
 		
-		resizeColumnWidth(table);
+		table.resizeColumnWidth();
 	}
 	
 }
