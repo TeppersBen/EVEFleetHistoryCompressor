@@ -32,8 +32,6 @@ public class ButtonListener {
 					"No"
 				);
 				
-				System.out.println(press);
-				
 				if (press == 0) {
 					DataSet data = ContainerHandler.get(panel.getDatasetPanel().getDataset().getFileName());
 					data.setPaid(true);
