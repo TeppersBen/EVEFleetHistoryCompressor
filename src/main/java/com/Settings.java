@@ -8,6 +8,7 @@ public class Settings {
 
 	public static final String CONFIGURATION_USER_SETTINGS_FILE = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "EVE_FLEET_HISTORY" + File.separator + "config.properties";
 	public static final String APP_NAME = "EVE Fleet History Compressor";
+	public static final String ERR_LOG_LOCATION = System.getProperty("user.home") + "\\Desktop\\EVE_ERROR_LOG.txt";
 	
 	public static final double File_Transporter_EVE_to_Unfinished_Thread_Speed = 1; //1sec
 	
