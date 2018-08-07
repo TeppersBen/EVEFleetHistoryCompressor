@@ -12,7 +12,7 @@ import com.entities.LogLine;
 public class ListHandlerTest {
 
 	@Test
-	public void compressMassivelogList() {
+	public void compress_massive_logline_list() {
 		LogLine log;
 		List<LogLine> logs = new ArrayList<>();
 		
