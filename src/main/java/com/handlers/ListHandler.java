@@ -14,6 +14,12 @@ import com.utils.Table;
 
 public class ListHandler {
 	
+	/**
+	 * Turns a massive logline list with multiple lines of same charactername and items collected into
+	 * a small logline list where those lines are merged together into one logline
+	 * @param list - LogLine List
+	 * @return merged LogLine List
+	 */
 	public static List<LogLine> compressMassiveLogList(List<LogLine> list) {
 		List<LogLine> compressedList = new ArrayList<>();
 		int length = list.size();
@@ -48,6 +54,12 @@ public class ListHandler {
 		return compressedList;
 	}
 	
+	/**
+	 * Fills the table with the values stored within the passed list<br>
+	 * This method should only be used for filling normal loot tables
+	 * @param list - LogLine List
+	 * @param table - Table
+	 */
 	public static void fillEVELootListTableUsingLogList(List<LogLine> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
@@ -62,6 +74,12 @@ public class ListHandler {
 		table.resizeColumnWidth();
 	}
 	
+	/**
+	 * Fills the table with the values stored within the passed list<br>
+	 * This method should only be used for a massive lootList table
+	 * @param list - LogLine List.
+	 * @param table - Table
+	 */
 	public static void fillEVEOveralEarningLootList(List<LogLine> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
@@ -80,6 +98,12 @@ public class ListHandler {
 		table.resizeColumnWidth();
 	}
 	
+	/**
+	 * Fills the table with the values stored within the passed list<br>
+	 * This method is used to fill playerstat tables
+	 * @param list - Player List
+	 * @param table - Table
+	 */
 	public static void fillEVEPlayerStatsListUsingPlayerList(List<Player> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		Object[] data;
@@ -94,6 +118,12 @@ public class ListHandler {
 		table.resizeColumnWidth();
 	}
 	
+	/**
+	 * Fills the table with the values stored within the passed list<br>
+	 * this method should only be used if you want to fill the table using logLine List
+	 * @param list - LogLine List
+	 * @param table - Table
+	 */
 	public static void fillEVEPlayerStatsListUsingLogList(List<LogLine> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		List<Player> players = PaymentCalculator.getPayments(list);
@@ -109,6 +139,12 @@ public class ListHandler {
 		table.resizeColumnWidth();
 	}
 	
+	/**
+	 * Fills the table with the values stored within the passed list<br>
+	 * this method is used to fill a file table
+	 * @param list - DataSet List
+	 * @param table - Table
+	 */
 	public static void fillEVELootFilesList(List<DataSet> list, Table table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
