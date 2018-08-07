@@ -14,7 +14,7 @@ import com.handlers.DatabaseHandler;
 public class PaymentCalculatorTest {
 
 	@Test
-	public void getPayments() {
+	public void get_player_payments() {
 		DatabaseHandler.init();
 		LogLine log;
 		List<LogLine> logs = new ArrayList<>();
