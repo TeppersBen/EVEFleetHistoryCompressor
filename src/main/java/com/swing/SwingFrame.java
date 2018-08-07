@@ -10,6 +10,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.Settings;
+import com.listeners.WindowListener;
 
 public class SwingFrame extends JFrame {
 
@@ -37,6 +38,8 @@ public class SwingFrame extends JFrame {
 		setMinimumSize(new Dimension(getWidth() + 500, 500));
 
 		setLocationRelativeTo(null);
+		
+		addWindowListener(new WindowListener());
 	}
 
 	private void initComponents() {
