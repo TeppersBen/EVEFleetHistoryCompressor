@@ -9,6 +9,18 @@ import com.entities.Player;
 
 public class PaymentCalculator {
 
+	/**
+	 * Turns a logline list into how much each player earned<br>
+	 * List can look like this:<br><br>
+	 * <code>
+	 * Ben-658,450.00 ISK-38.54%<br>
+	 * Stefan-265,700.00 ISK-15.55%<br>
+	 * Ellen-134,410.00 ISK-7.87%<br>
+	 * Zoran-650,000.00 ISK-38.04%
+	 * </code>
+	 * @param list - LogLine List
+	 * @return Player List
+	 */
 	public static List<Player> getPayments(List<LogLine> list) {
 		List<Player> characters = new ArrayList<>();		
 		Object[] uniqueNames;
