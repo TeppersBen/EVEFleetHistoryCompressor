@@ -13,11 +13,19 @@ public class DatabaseHandler {
 	private static TreeMap<String, Double> harvestables = new TreeMap<>();
 	private static TreeMap<String, Double> lootables = new TreeMap<>();
 	
+	/**
+	 * Initialises the Database tables.
+	 */
 	public static void init() {
 		setHarvestables(convertDataToMap(Settings.database_Harvestables_File_Name));
 		setLootables(convertDataToMap(Settings.database_Lootables_File_Name));
 	}
 	
+	/**
+	 * Converts the data within the database files to a map
+	 * @param fileName - String
+	 * @return TreeMap String,Double
+	 */
 	private static TreeMap<String, Double> convertDataToMap(String fileName) {
 		TreeMap<String, Double> map = new TreeMap<>();
 		try (InputStream is = DatabaseHandler.class.getResourceAsStream("/database/" + fileName);
@@ -43,18 +51,34 @@ public class DatabaseHandler {
 		return map;
 	}
 
+	/**
+	 * Get all harvestables
+	 * @return harvestables
+	 */
 	public static TreeMap<String, Double> getHarvestables() {
 		return harvestables;
 	}
 
+	/**
+	 * Set harvestables
+	 * @param harvestables - TreeMap String,Double
+	 */
 	public static void setHarvestables(TreeMap<String, Double> harvestables) {
 		DatabaseHandler.harvestables = harvestables;
 	}
 
+	/**
+	 * Get all lootables
+	 * @return lootables
+	 */
 	public static TreeMap<String, Double> getLootables() {
 		return lootables;
 	}
 
+	/**
+	 * Set lootables
+	 * @param lootables - TreeMap String,Double
+	 */
 	public static void setLootables(TreeMap<String, Double> lootables) {
 		DatabaseHandler.lootables = lootables;
 	}
