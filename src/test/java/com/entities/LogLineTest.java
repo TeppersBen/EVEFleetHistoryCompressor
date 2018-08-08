@@ -76,4 +76,9 @@ public class LogLineTest {
 	public void get_total_price_formatted() {
 		assertEquals("118.30 ISK", log.getTotalPriceFormatted());
 	}
+	
+	@Test
+	public void get_to_string() {
+		assertEquals("2050.11.05 14:50#ZappyBoii#Scordite#16.90 ISK#7#Harvestable", log.toString());
+	}
 }
