@@ -69,7 +69,7 @@ public class LogLine {
 		this.itemGroup = itemGroup;
 	}
 	
-	public double getItemPriceEach() {
+	public double getEstimatedItemPrice() {
 		String name = itemType.replaceAll(" ", "_");
 		name = Formatter.turnLogLineStringIntoDatabaseString(name);
 		
@@ -93,7 +93,7 @@ public class LogLine {
 	}
 	
 	public double getTotalPrice() {
-		return getItemPriceEach() * quantity;
+		return getEstimatedItemPrice() * quantity;
 	}
 	
 	public String getTotalPriceFormatted() {
@@ -101,6 +101,6 @@ public class LogLine {
 	}
 	
 	public String toString() {
-		return String.format("%s#%s#%s#%s ISK#%d#%s", logTime.format(format), characterName, itemType, Formatter.convertToReadable(getItemPriceEach()), quantity, itemGroup);
+		return String.format("%s#%s#%s#%s ISK#%d#%s", logTime.format(format), characterName, itemType, Formatter.convertToReadable(getEstimatedItemPrice()), quantity, itemGroup);
 	}
 }
