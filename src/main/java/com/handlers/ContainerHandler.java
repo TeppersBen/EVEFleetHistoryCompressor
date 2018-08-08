@@ -66,7 +66,7 @@ public class ContainerHandler {
 		dataSet.setFileName("");
 		dataSet.setPaid(true);
 		
-		if (dataSet.getLootList().size() == get("Overall").getLootList().size())
+		if (dataSet.getLootList().size() == dataSets.get("Overall").getLootList().size())
 			return;
 		
 		Settings.trigger_overall_view = true;
