@@ -1,4 +1,4 @@
-package com.swing;
+package com.swing.nodes;
 
 import java.awt.BorderLayout;
 
@@ -9,9 +9,10 @@ import com.entities.DataSet;
 import com.handlers.ContainerHandler;
 import com.handlers.ListHandler;
 import com.handlers.ThreadHandler;
+import com.utils.Logger;
 import com.utils.Table;
 
-public class DataSetPanel extends JPanel {
+public class DataSetNode extends JPanel {
 	
 	private static final long serialVersionUID = -4576591025283717970L;
 
@@ -22,11 +23,13 @@ public class DataSetPanel extends JPanel {
 	
 	private boolean isOverall;
 	
-	public DataSetPanel(DataSet dataset) {
+	private Thread thread;
+	
+	public DataSetNode(DataSet dataset) {
 		this(dataset, false);
 	}
 	
-	public DataSetPanel(DataSet dataset, boolean isOverall) {
+	public DataSetNode(DataSet dataset, boolean isOverall) {
 		super(new BorderLayout());
 		this.isOverall = isOverall;
 		setDataset(dataset);
@@ -34,8 +37,10 @@ public class DataSetPanel extends JPanel {
 		layoutComponents();
 		if (dataset != null)
 			fillLists();
-		if (isOverall)
-			ThreadHandler.overall_view_refresher(this).start();
+		if (isOverall) {
+			thread = ThreadHandler.overall_view_refresher(this);
+			startThreadIfPossible();
+		}
 	}
 	
 	private void initComponents() {
@@ -90,6 +95,34 @@ public class DataSetPanel extends JPanel {
 		lootTable.resetTable();
 		playerTable.resetTable();
 		setBorder(BorderFactory.createTitledBorder("No file selected yet."));
+	}
+	
+	public synchronized void shutdownThreadIfPossible() {
+		if (getThread() != null && getThread().isAlive()) {
+			try {
+				Logger.log(this, "Closing Thread");
+				ThreadHandler.overall_view_refresher = false;
+				getThread().interrupt();
+				getThread().join();
+				Logger.log(this, "Thread Is Closed");
+			} catch (InterruptedException e1) {
+				Logger.log(this, "Thread Has Crashed");
+			}
+		}
+	}
+	
+	public synchronized void startThreadIfPossible() {
+		if (getThread() != null && getThread().isAlive())
+			return;
+		
+		Logger.log(this, "Starting Thread");
+		
+		thread = ThreadHandler.overall_view_refresher(this);
+		thread.start();
+	}
+	
+	public Thread getThread() {
+		return thread;
 	}
 	
 }

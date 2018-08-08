@@ -16,7 +16,7 @@ public class TabPanel extends JPanel {
 	private LogNode node_unfinishedPayments = new LogNode(false);
 	private LogNode node_finishedPayments = new LogNode(true);
 	private DataSetNode node_overall = new DataSetNode(ContainerHandler.get("Overall"), true);
-
+	
 	public TabPanel() {
 		super(new BorderLayout());
 		JTabbedPane tab = new JTabbedPane();
@@ -29,18 +29,21 @@ public class TabPanel extends JPanel {
 		tab.addChangeListener(e -> {
 			String selectedSource = ((JTabbedPane)e.getSource()).getTitleAt(((JTabbedPane)e.getSource()).getSelectedIndex());
 			
-			switch (selectedSource) {
-			case "Total Earnings":
-				//start Overall threads
-				break;
-			case "Unfinished Payments":
-				//start Unfinished payments threads
-				break;
-			case "Finished Payments":
-				//start finished payments threads
-				break;
-			default:
-				break;
+			if (selectedSource.equalsIgnoreCase("Total Earnings")) {
+				node_overall.startThreadIfPossible();
+				
+				node_unfinishedPayments.shutdownThreadIfPossible();
+				node_finishedPayments.shutdownThreadIfPossible();
+			} else if (selectedSource.equalsIgnoreCase("Unfinished Payments")) {
+				node_unfinishedPayments.startThreadsIfPossible();
+				
+				node_overall.shutdownThreadIfPossible();
+				node_finishedPayments.shutdownThreadIfPossible();
+			} else {
+				node_finishedPayments.startThreadsIfPossible();
+				
+				node_overall.shutdownThreadIfPossible();
+				node_unfinishedPayments.shutdownThreadIfPossible();
 			}
 		});
 	}

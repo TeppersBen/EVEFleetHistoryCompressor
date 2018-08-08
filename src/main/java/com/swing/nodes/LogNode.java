@@ -1,4 +1,4 @@
-package com.swing;
+package com.swing.nodes;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -16,12 +16,12 @@ import com.listeners.ButtonListener;
 import com.utils.Logger;
 import com.utils.Table;
 
-public class LogPanel extends JPanel {
+public class LogNode extends JPanel {
 	
 	private static final long serialVersionUID = -8678598204342703638L;
 	
 	private Table fileTable;
-	private DataSetPanel datasetPanel;
+	private DataSetNode datasetPanel;
 	
 	private JButton button_RemoveFile;
 	private JButton button_SetPaid;
@@ -29,16 +29,18 @@ public class LogPanel extends JPanel {
 	private boolean isPaid;
 	private int selectedIndex = -1;
 	
-	public LogPanel(boolean isPaid) {
+	private Thread thread;
+	
+	public LogNode(boolean isPaid) {
 		super(new BorderLayout());
 		setPaid(isPaid);
-		setDatasetPanel(new DataSetPanel(null));
+		setDatasetPanel(new DataSetNode(null));
 		initComponents();
 		layoutComponents();
 		initListeners();
 		fillLootFilesList();
 		
-		ThreadHandler.file_refresher(this).start();
+		thread = ThreadHandler.file_refresher(this);
 		
 	}
 	
@@ -109,11 +111,11 @@ public class LogPanel extends JPanel {
 			ListHandler.fillEVELootFilesList(ContainerHandler.getUnpaidDataSets(), fileTable);
 	}
 
-	public DataSetPanel getDatasetPanel() {
+	public DataSetNode getDatasetPanel() {
 		return datasetPanel;
 	}
 
-	public void setDatasetPanel(DataSetPanel datasetPanel) {
+	public void setDatasetPanel(DataSetNode datasetPanel) {
 		this.datasetPanel = datasetPanel;
 	}
 
@@ -135,6 +137,32 @@ public class LogPanel extends JPanel {
 
 	public void resetSelectedIndex() {
 		selectedIndex = -1;		
+	}
+
+	public synchronized void startThreadsIfPossible() {
+		if (thread != null && thread.isAlive())
+			return;
+		
+		Logger.log(this, "Starting " + (isPaid ? "finished payments" : "unfinished payments") + " Thread");
+		
+		thread = ThreadHandler.file_refresher(this);
+		thread.start();
+	}
+	
+	public synchronized void shutdownThreadIfPossible() {
+		if (thread != null && thread.isAlive()) {
+			try {
+				Logger.log(this, "Closing " + (isPaid ? "finished payments" : "unfinished payments") + " Thread");
+				
+				ThreadHandler.file_refresher = false;
+				
+				thread.interrupt();
+				thread.join();
+				Logger.log(this, "Thread " + (isPaid ? "finished payments" : "unfinished payments") + " Is Closed");
+			} catch (InterruptedException e) {
+				Logger.log(this, "Thread " + (isPaid ? "finished payments" : "unfinished payments") + " Has Crashed");
+			}
+		}
 	}
 	
 }

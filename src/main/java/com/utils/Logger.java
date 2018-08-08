@@ -13,7 +13,11 @@ public class Logger {
 	private static List<String> errList = new ArrayList<>();
 	
 	public static void log(Object o, String message) {
-		System.out.println(o.getClass().getSimpleName() + ": " + message + "...");
+		log(o.getClass().getSimpleName(), message);
+	}
+	
+	public static void log(String className, String message) {
+		System.out.println(className + ": " + message + "...");
 	}
 	
 	public static void err(Object o, String message) {
