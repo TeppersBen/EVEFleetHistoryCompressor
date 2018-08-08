@@ -48,8 +48,20 @@ public class LogLineTest {
 	}
 	
 	@Test
+	public void set_character_name() {
+		log.setCharacterName("ZipZap");
+		assertEquals("ZipZap", log.getCharacterName());
+	}
+	
+	@Test
 	public void get_item_type() {
 		assertEquals("Scordite", log.getItemType());
+	}
+	
+	@Test
+	public void set_item_type() {
+		log.setItemType("NewItem");
+		assertEquals("NewItem", log.getItemType());
 	}
 	
 	@Test
@@ -58,8 +70,20 @@ public class LogLineTest {
 	}
 	
 	@Test
+	public void set_item_quantity() {
+		log.setQuantity(500);
+		assertEquals(500, log.getQuantity());
+	}
+	
+	@Test
 	public void get_item_group() {
 		assertEquals("Harvestable", log.getItemGroup());
+	}
+	
+	@Test
+	public void set_item_group() {
+		log.setItemGroup("NewGroup");
+		assertEquals("NewGroup", log.getItemGroup());
 	}
 	
 	@Test
