@@ -36,4 +36,44 @@ public class LogLineTest {
 		log = new LogLine(date, "Ben", "Metal_Scraps", 1520, "P2W");
 		assertEquals("2018.08.07 01:49#Ben#Metal_Scraps#1,300.00 ISK#1520#P2W", log.toString());
 	}
+	
+	@Test
+	public void get_dateTime() {
+		assertEquals(LocalDateTime.of(2050, 11, 05, 14, 50), log.getLogTime());
+	}
+	
+	@Test
+	public void get_character_name() {
+		assertEquals("ZappyBoii", log.getCharacterName());
+	}
+	
+	@Test
+	public void get_item_type() {
+		assertEquals("Scordite", log.getItemType());
+	}
+	
+	@Test
+	public void get_item_quantity() {
+		assertEquals(7, log.getQuantity());
+	}
+	
+	@Test
+	public void get_item_group() {
+		assertEquals("Harvestable", log.getItemGroup());
+	}
+	
+	@Test
+	public void get_estimated_item_price() {
+		assertEquals(16.9, log.getEstimatedItemPrice(), 0);
+	}
+	
+	@Test
+	public void get_total_price() {
+		assertEquals(118.3, log.getTotalPrice(), 0.2);
+	}
+	
+	@Test
+	public void get_total_price_formatted() {
+		assertEquals("118.30 ISK", log.getTotalPriceFormatted());
+	}
 }
