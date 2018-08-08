@@ -9,11 +9,11 @@ import com.Settings;
 import com.entities.DataSet;
 import com.handlers.ContainerHandler;
 import com.io.FileReader;
-import com.swing.LogPanel;
+import com.swing.nodes.LogNode;
 
 public class ButtonListener {
 
-	public static ActionListener get_set_paid_action_listener(LogPanel panel) {
+	public static ActionListener get_set_paid_action_listener(LogNode panel) {
 		return new ActionListener() {
 			
 			@Override
@@ -47,7 +47,7 @@ public class ButtonListener {
 		};
 	}
 	
-	public static ActionListener get_remove_loot_history_file(LogPanel panel) {
+	public static ActionListener get_remove_loot_history_file(LogNode panel) {
 		return new ActionListener() {
 
 			@Override

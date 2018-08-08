@@ -2,8 +2,8 @@ package com.handlers;
 
 import com.Settings;
 import com.io.FileReader;
-import com.swing.DataSetPanel;
-import com.swing.LogPanel;
+import com.swing.nodes.DataSetNode;
+import com.swing.nodes.LogNode;
 
 public class ThreadHandler {
 
@@ -23,7 +23,7 @@ public class ThreadHandler {
 		});
 	}	
 	
-	public static Thread file_refresher(LogPanel panel) {
+	public static Thread file_refresher(LogNode panel) {
 		return new Thread(() -> {
 			while (true) {
 				
@@ -38,7 +38,7 @@ public class ThreadHandler {
 		});
 	}
 	
-	public static Thread overall_view_refresher(DataSetPanel panel) {
+	public static Thread overall_view_refresher(DataSetNode panel) {
 		return new Thread(() -> {
 			while (true) {
 				
