@@ -30,6 +30,7 @@ public class LogNode extends JPanel {
 	private int selectedIndex = -1;
 	
 	private Thread thread;
+	private String className = getClass().getSimpleName();
 	
 	public LogNode(boolean isPaid) {
 		super(new BorderLayout());
@@ -41,7 +42,6 @@ public class LogNode extends JPanel {
 		fillLootFilesList();
 		
 		thread = ThreadHandler.file_refresher(this);
-		
 	}
 	
 	private void initComponents() {
@@ -82,7 +82,7 @@ public class LogNode extends JPanel {
 					selectedIndex = fileTable.getSelectedRow();
 					String name = fileTable.getValueAt(selectedIndex, 0).toString();
 					datasetPanel.updateView(name);
-					Logger.log(this, "View window changed to " + name);
+					Logger.log(className, "View window changed to " + name);
 				}
 			}
 		});

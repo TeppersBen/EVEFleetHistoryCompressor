@@ -31,7 +31,7 @@ public class ContainerHandler {
 			dataSet.setFileName(fileName);
 			dataSet.setFilePath(line);
 			dataSets.put(fileName, dataSet);
-			Logger.log(ContainerHandler.class, fileName + " with " + dataSet + " has been added to the container");
+			Logger.log(ContainerHandler.class.getSimpleName(), fileName + " with " + dataSet + " has been added to the container");
 		}
 
 		List<String> paid = FileReader.getAllFinishedMiningFleetPayments();
@@ -45,7 +45,7 @@ public class ContainerHandler {
 			dataSet.setFileName(fileName);
 			dataSet.setFilePath(line);
 			dataSets.put(fileName, dataSet);
-			Logger.log(ContainerHandler.class, fileName + " with " + dataSet + " has been added to the container");
+			Logger.log(ContainerHandler.class.getSimpleName(), fileName + " with " + dataSet + " has been added to the container");
 		}
 
 		createMassiveDataSet();
@@ -76,22 +76,22 @@ public class ContainerHandler {
 
 	public static void remove(Object fileName) {
 		dataSets.remove(fileName);
-		Logger.log(ContainerHandler.class, fileName + " has been removed from the container");
+		Logger.log(ContainerHandler.class.getSimpleName(), fileName + " has been removed from the container");
 	}
 
 	public static void put(String fileName, DataSet dataSet) {
 		dataSets.put(fileName, dataSet);
-		Logger.log(ContainerHandler.class, fileName + " with " + dataSet + " has been added to the container");
+		Logger.log(ContainerHandler.class.getSimpleName(), fileName + " with " + dataSet + " has been added to the container");
 	}
 
 	public static DataSet get(Object fileName) {
-		Logger.log(ContainerHandler.class, fileName + " has been requested.");
+		Logger.log(ContainerHandler.class.getSimpleName(), fileName + " has been requested.");
 		return dataSets.get(fileName);
 	}
 
 	public static void modify(String key, DataSet dataset) {
 		dataSets.replace(key, dataset);
-		Logger.log(ContainerHandler.class, key + " was modified, new object[]=" + dataset);
+		Logger.log(ContainerHandler.class.getSimpleName(), key + " was modified, new object[]=" + dataset);
 	}
 
 	public static List<DataSet> getUnpaidDataSets() {
