@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 import com.Settings;
 import com.entities.DataSet;
-import com.handlers.ContainerHandler;
+import com.handlers.DataSetHandler;
 import com.utils.Logger;
 
 public class FileReader {
@@ -64,10 +64,10 @@ public class FileReader {
 		try {
 		    Files.move(source.toPath(), target.toPath(), StandardCopyOption.ATOMIC_MOVE);
 		    Logger.log(FileReader.class, "Moved " + source.toPath() + " to " + target.toPath());
-		    DataSet data = ContainerHandler.get(fileName.replaceAll(".txt", ""));
+		    DataSet data = DataSetHandler.get(fileName.replaceAll(".txt", ""));
 		    data.setFilePath(target.toPath().toString());
 		    data.setPaid(true);
-		    ContainerHandler.modify(fileName, data);
+		    DataSetHandler.modify(fileName, data);
 		    Settings.trigger_file_list_activated = true;
 		} catch (IOException e) {
 		    e.printStackTrace();
@@ -79,9 +79,9 @@ public class FileReader {
 		File target = new File(Settings.unfinishedFleetPaymentsPath + File.separator + fileName);
 		try {
 		    Files.move(source.toPath(), target.toPath(), StandardCopyOption.ATOMIC_MOVE);
-		    DataSet data = ContainerHandler.get(fileName.replaceAll(".txt", ""));
+		    DataSet data = DataSetHandler.get(fileName.replaceAll(".txt", ""));
 		    data.setFilePath(target.toPath().toString());
-		    ContainerHandler.modify(fileName, data);
+		    DataSetHandler.modify(fileName, data);
 		    Settings.trigger_file_list_activated = true;
 		} catch (IOException e) {
 		    e.printStackTrace();
@@ -98,7 +98,7 @@ public class FileReader {
 				data = new DataSet(EveLogReader.convertLogToList(getFileContent(files.get(i))));
 				data.setFileName(name.replaceAll(".txt", ""));
 				data.setFilePath(files.get(i));
-				ContainerHandler.put(name.replaceAll(".txt", ""), data);
+				DataSetHandler.put(name.replaceAll(".txt", ""), data);
 				
 				transferFleetLogToUnpaidLocation(name);
 				Logger.log(FileReader.class, "Moved " + name + " to unfinished payments");

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.Settings;
 import com.entities.DataSet;
-import com.handlers.ContainerHandler;
+import com.handlers.DataSetHandler;
 import com.io.FileReader;
 import com.swing.nodes.LogNode;
 
@@ -33,9 +33,9 @@ public class ButtonListener {
 				);
 				
 				if (press == 0) {
-					DataSet data = ContainerHandler.get(panel.getDatasetPanel().getDataset().getFileName());
+					DataSet data = DataSetHandler.get(panel.getDatasetPanel().getDataset().getFileName());
 					data.setPaid(true);
-					ContainerHandler.modify(panel.getDatasetPanel().getDataset().getFileName(), data);
+					DataSetHandler.modify(panel.getDatasetPanel().getDataset().getFileName(), data);
 					FileReader.transferFleetLogToPaidLocation(panel.getDatasetPanel().getDataset().getFileName());
 					panel.fillLootFilesList();
 					panel.resetSelectedIndex();
@@ -67,7 +67,7 @@ public class ButtonListener {
 				);
 				if (press == 0) {
 					FileReader.removeFile(panel.getDatasetPanel().getDataset().getFilePath());
-					ContainerHandler.remove(panel.getDatasetPanel().getDataset().getFileName());
+					DataSetHandler.remove(panel.getDatasetPanel().getDataset().getFileName());
 					panel.resetSelectedIndex();
 					panel.getDatasetPanel().clear();
 				}

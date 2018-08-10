@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.handlers.ContainerHandler;
+import com.handlers.DataSetHandler;
 import com.swing.nodes.DataSetNode;
 import com.swing.nodes.LogNode;
 
@@ -15,7 +15,7 @@ public class TabPanel extends JPanel {
 
 	private LogNode node_unfinishedPayments = new LogNode(false);
 	private LogNode node_finishedPayments = new LogNode(true);
-	private DataSetNode node_overall = new DataSetNode(ContainerHandler.get("Overall"), true);
+	private DataSetNode node_overall = new DataSetNode(DataSetHandler.get("Overall"), true);
 	
 	public TabPanel() {
 		super(new BorderLayout());

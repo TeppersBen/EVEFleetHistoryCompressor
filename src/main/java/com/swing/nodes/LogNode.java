@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.handlers.ContainerHandler;
+import com.handlers.DataSetHandler;
 import com.handlers.ListHandler;
 import com.handlers.ThreadHandler;
 import com.listeners.ButtonListener;
@@ -106,9 +106,9 @@ public class LogNode extends JPanel {
 	
 	public void fillLootFilesList() {
 		if (isPaid()) 
-			ListHandler.fillEVELootFilesList(ContainerHandler.getPaidDataSets(), fileTable);
+			ListHandler.fillEVELootFilesList(DataSetHandler.getPaidDataSets(), fileTable);
 		else 
-			ListHandler.fillEVELootFilesList(ContainerHandler.getUnpaidDataSets(), fileTable);
+			ListHandler.fillEVELootFilesList(DataSetHandler.getUnpaidDataSets(), fileTable);
 	}
 
 	public DataSetNode getDatasetPanel() {

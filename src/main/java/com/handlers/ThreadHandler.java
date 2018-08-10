@@ -19,7 +19,7 @@ public class ThreadHandler {
 			while (get_original_eve_history_log_location_checker) {
 				
 				FileReader.transferFilesToUnfinishedIfPossible();
-				ContainerHandler.updateMassiveDataSet();
+				DataSetHandler.updateMassiveDataSet();
 				
 				try {
 					Thread.sleep((long)(1000 / tick_per_second));

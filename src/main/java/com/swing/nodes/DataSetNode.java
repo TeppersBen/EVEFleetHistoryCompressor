@@ -6,7 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.entities.DataSet;
-import com.handlers.ContainerHandler;
+import com.handlers.DataSetHandler;
 import com.handlers.ListHandler;
 import com.handlers.ThreadHandler;
 import com.utils.Logger;
@@ -72,7 +72,7 @@ public class DataSetNode extends JPanel {
 	}
 
 	public void updateView(String name) {
-		setDataset(ContainerHandler.get(name));
+		setDataset(DataSetHandler.get(name));
 		fillLists();
 		if (!isOverall) {
 			if (dataset != null) {
