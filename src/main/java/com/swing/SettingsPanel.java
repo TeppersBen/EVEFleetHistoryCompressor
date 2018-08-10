@@ -39,7 +39,11 @@ public class SettingsPanel extends JPanel {
 	}
 	
 	private void layoutComponents() {
-		
+		add(getLocationPaths(), BorderLayout.WEST);
+		add(apply, BorderLayout.SOUTH);
+	}
+	
+	public JPanel getLocationPaths() {
 		JPanel pathMerge = new JPanel(new BorderLayout());
 		pathMerge.add(unfinishedPayments, BorderLayout.NORTH);
 		pathMerge.add(finishedPayments, BorderLayout.CENTER);
@@ -50,8 +54,7 @@ public class SettingsPanel extends JPanel {
 		
 		locationPaths.add(pathMerge);
 		
-		add(locationPaths, BorderLayout.WEST);
-		add(apply, BorderLayout.SOUTH);
+		return locationPaths;
 	}
 	
 	private void setPresetSettings() {
