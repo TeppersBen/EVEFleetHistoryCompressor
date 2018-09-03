@@ -7,9 +7,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.entities.DataSet;
 import com.entities.LogLine;
-import com.entities.Player;
-import com.utils.Formatter;
-import com.utils.PaymentCalculator;
 import com.utils.Table;
 
 public class ListHandler {
@@ -52,91 +49,6 @@ public class ListHandler {
 		}
 		
 		return compressedList;
-	}
-	
-	/**
-	 * Fills the table with the values stored within the passed list<br>
-	 * This method should only be used for filling normal loot tables
-	 * @param list - LogLine List
-	 * @param table - Table
-	 */
-	public static void fillEVELootListTableUsingLogList(List<LogLine> list, Table table) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.setRowCount(0);
-		
-		String[] data;
-		for (LogLine line : list) {
-			data = line.toString().split("#");
-			data[4] = Formatter.convertToGroupedNumber(Long.parseLong(data[4]));
-			model.addRow(data);
-		}
-
-		table.resizeColumnWidth();
-	}
-	
-	/**
-	 * Fills the table with the values stored within the passed list<br>
-	 * This method should only be used for a massive lootList table
-	 * @param list - LogLine List.
-	 * @param table - Table
-	 */
-	public static void fillEVEOveralEarningLootList(List<LogLine> list, Table table) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.setRowCount(0);
-		
-		String[] data;
-		String total;
-		for (LogLine line : list) {
-			data = line.toString().split("#");
-			total = Formatter.multiplyTwoStringsIntoReadable(data[3].replaceAll(" ISK", ""), data[4]);
-			data[4] = Formatter.convertToGroupedNumber(Long.parseLong(data[4]));
-			model.addRow(
-				new String[] { data[1], data[2], data[4], data[3], total + " ISK" }
-			);
-		}
-
-		table.resizeColumnWidth();
-	}
-	
-	/**
-	 * Fills the table with the values stored within the passed list<br>
-	 * This method is used to fill playerstat tables
-	 * @param list - Player List
-	 * @param table - Table
-	 */
-	public static void fillEVEPlayerStatsListUsingPlayerList(List<Player> list, Table table) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		Object[] data;
-		
-		model.setRowCount(0);
-		
-		for (Player player : list) {
-			data = player.toString().split("-");
-			model.addRow(data);
-		}
-		
-		table.resizeColumnWidth();
-	}
-	
-	/**
-	 * Fills the table with the values stored within the passed list<br>
-	 * this method should only be used if you want to fill the table using logLine List
-	 * @param list - LogLine List
-	 * @param table - Table
-	 */
-	public static void fillEVEPlayerStatsListUsingLogList(List<LogLine> list, Table table) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		List<Player> players = PaymentCalculator.getPayments(list);
-		Object[] data;
-		
-		model.setRowCount(0);
-		
-		for (Player player : players) {
-			data = player.toString().split("-");
-			model.addRow(data);
-		}
-		
-		table.resizeColumnWidth();
 	}
 	
 	/**

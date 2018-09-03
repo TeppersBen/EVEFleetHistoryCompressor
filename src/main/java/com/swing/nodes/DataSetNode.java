@@ -5,9 +5,10 @@ import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import com.Settings;
 import com.entities.DataSet;
 import com.handlers.DataSetHandler;
-import com.handlers.ListHandler;
+import com.handlers.TableHandler;
 import com.handlers.ThreadHandler;
 import com.utils.Logger;
 import com.utils.Table;
@@ -35,8 +36,6 @@ public class DataSetNode extends JPanel {
 		setDataset(dataset);
 		initComponents();
 		layoutComponents();
-		if (dataset != null)
-			fillLists();
 		if (isOverall) {
 			thread = ThreadHandler.overall_view_refresher(this);
 			startThreadIfPossible();
@@ -44,11 +43,21 @@ public class DataSetNode extends JPanel {
 	}
 	
 	private void initComponents() {
-		if (isOverall)
-			lootTable = new Table("Character", "Item Type", "Quantity", "Est. Market", "Total Market");
-		else
-			lootTable = new Table("Time", "Character", "Item Type", "Est. Market", "Quantity", "Item Group");
-		playerTable = new Table("Character", "Earned", "%");
+		if (isOverall) {
+			lootTable = new Table(TableHandler.getLootModel("Overall"));
+			playerTable = new Table(TableHandler.getPlayerStatModel("Overall"));
+		} else {
+			if (dataset == null) {
+				lootTable = new Table(Settings.Regular_Loot_Table_Header_Names);
+				playerTable = new Table(Settings.Player_Table_Header_Names);
+			} else {
+				lootTable = new Table(TableHandler.getLootModel(dataset.getFileName()));
+				playerTable = new Table(TableHandler.getPlayerStatModel(dataset.getFileName()));
+			}
+		}
+		
+		lootTable.resizeColumnWidth();
+		playerTable.resizeColumnWidth();
 	}
 	
 	private void layoutComponents() {
@@ -62,18 +71,15 @@ public class DataSetNode extends JPanel {
 		add(lootTable.getTableWithScrollBar(), BorderLayout.CENTER);
 		add(playerTable.getTableWithScrollBar(), BorderLayout.EAST);
 	}
-	
-	private void fillLists() {
-		if (isOverall)
-			ListHandler.fillEVEOveralEarningLootList(dataset.getLootList(), lootTable);
-		else
-			ListHandler.fillEVELootListTableUsingLogList(dataset.getLootList(), lootTable);
-		ListHandler.fillEVEPlayerStatsListUsingPlayerList(dataset.getPlayerList(), playerTable);
-	}
 
+	private void refreshTable() {
+		lootTable.setModel(TableHandler.getLootModel(dataset.getFileName()));
+		playerTable.setModel(TableHandler.getPlayerStatModel(dataset.getFileName()));
+	}
+	
 	public void updateView(String name) {
 		setDataset(DataSetHandler.get(name));
-		fillLists();
+		refreshTable();
 		if (!isOverall) {
 			if (dataset != null) {
 				setBorder(BorderFactory.createTitledBorder(dataset.getFileName()));

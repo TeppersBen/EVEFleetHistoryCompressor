@@ -85,7 +85,7 @@ public class DataSetHandler {
 	}
 
 	public static DataSet get(Object fileName) {
-		Logger.log(DataSetHandler.class.getSimpleName(), fileName + " has been requested.");
+		Logger.log(DataSetHandler.class.getSimpleName(), fileName + " has been requested");
 		return dataSets.get(fileName);
 	}
 

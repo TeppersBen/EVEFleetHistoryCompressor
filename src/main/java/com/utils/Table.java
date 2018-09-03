@@ -9,6 +9,7 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class Table extends JTable {
@@ -17,6 +18,10 @@ public class Table extends JTable {
 	private boolean isEditable;
 	
 	private TableRowSorter<DefaultTableModel> sorter;
+	
+	public Table(DefaultTableModel model) {
+		super(model);
+	}
 	
 	public Table(String... columnNames) {
 		this(new Object[0][0], columnNames);
@@ -46,12 +51,21 @@ public class Table extends JTable {
 		((DefaultTableModel)getModel()).setRowCount(0);
 	}
 	
+	@Override
+	public void setModel(TableModel model) {
+		super.setModel(model);
+		//TODO, make sure this method refreshes its model and redraws itself.
+		((DefaultTableModel)getModel()).fireTableDataChanged();
+		((DefaultTableModel)getModel()).fireTableStructureChanged();
+		repaint();
+	}
+	
 	public JScrollPane getTableWithScrollBar() {
 		JScrollPane pane = new JScrollPane(this);
 		pane.setPreferredSize(new Dimension(280, 2));
 		return pane;
 	}
-     
+    
 	public void setFilter(String data, int column) {
 		RowFilter<DefaultTableModel, Object> filter = null;
 		try {

@@ -12,6 +12,10 @@ public class Settings {
 	
 	public static final double File_Transporter_EVE_to_Unfinished_Thread_Speed = 1; //1sec
 	
+	public static final String[] Player_Table_Header_Names = { "Character", "Earned", "%" };
+	public static final String[] Regular_Loot_Table_Header_Names = { "Character", "Item Type", "Quantity", "Est. Market", "Total Market" };
+	public static final String[] Overall_Loot_Table_Header_Names = { "Time", "Character", "Item Type", "Est. Market", "Quantity", "Item Group" };
+	
 	public static volatile boolean trigger_file_list_activated;
 	public static volatile boolean trigger_overall_view;
 	
