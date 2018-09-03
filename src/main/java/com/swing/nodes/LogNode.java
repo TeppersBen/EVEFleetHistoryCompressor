@@ -11,7 +11,6 @@ import javax.swing.event.ListSelectionListener;
 
 import com.handlers.DataSetHandler;
 import com.handlers.ListHandler;
-import com.handlers.ThreadHandler;
 import com.listeners.ButtonListener;
 import com.utils.Logger;
 import com.utils.Table;
@@ -29,7 +28,6 @@ public class LogNode extends JPanel {
 	private boolean isPaid;
 	private int selectedIndex = -1;
 	
-	private Thread thread;
 	private String className = getClass().getSimpleName();
 	
 	public LogNode(boolean isPaid) {
@@ -40,8 +38,6 @@ public class LogNode extends JPanel {
 		layoutComponents();
 		initListeners();
 		fillLootFilesList();
-		
-		thread = ThreadHandler.file_refresher(this);
 	}
 	
 	private void initComponents() {
@@ -110,6 +106,14 @@ public class LogNode extends JPanel {
 		else 
 			ListHandler.fillEVELootFilesList(DataSetHandler.getUnpaidDataSets(), fileTable);
 	}
+	
+	public boolean isActive() {
+		return datasetPanel.isActive();
+	}
+	
+	public void setActive(boolean active) {
+		datasetPanel.setActive(active);
+	}
 
 	public DataSetNode getDatasetPanel() {
 		return datasetPanel;
@@ -137,32 +141,6 @@ public class LogNode extends JPanel {
 
 	public void resetSelectedIndex() {
 		selectedIndex = -1;		
-	}
-
-	public synchronized void startThreadsIfPossible() {
-		if (thread != null && thread.isAlive())
-			return;
-		
-		Logger.log(this, "Starting " + (isPaid ? "finished payments" : "unfinished payments") + " Thread");
-		
-		thread = ThreadHandler.file_refresher(this);
-		thread.start();
-	}
-	
-	public synchronized void shutdownThreadIfPossible() {
-		if (thread != null && thread.isAlive()) {
-			try {
-				Logger.log(this, "Closing " + (isPaid ? "finished payments" : "unfinished payments") + " Thread");
-				
-				ThreadHandler.file_refresher = false;
-				
-				thread.interrupt();
-				thread.join();
-				Logger.log(this, "Thread " + (isPaid ? "finished payments" : "unfinished payments") + " Is Closed");
-			} catch (InterruptedException e) {
-				Logger.log(this, "Thread " + (isPaid ? "finished payments" : "unfinished payments") + " Has Crashed");
-			}
-		}
 	}
 	
 }

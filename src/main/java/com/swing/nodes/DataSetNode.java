@@ -9,8 +9,6 @@ import com.Settings;
 import com.entities.DataSet;
 import com.handlers.DataSetHandler;
 import com.handlers.TableHandler;
-import com.handlers.ThreadHandler;
-import com.utils.Logger;
 import com.utils.Table;
 
 public class DataSetNode extends JPanel {
@@ -23,8 +21,7 @@ public class DataSetNode extends JPanel {
 	private DataSet dataset;
 	
 	private boolean isOverall;
-	
-	private Thread thread;
+	private boolean isActive;
 	
 	public DataSetNode(DataSet dataset) {
 		this(dataset, false);
@@ -36,10 +33,6 @@ public class DataSetNode extends JPanel {
 		setDataset(dataset);
 		initComponents();
 		layoutComponents();
-		if (isOverall) {
-			thread = ThreadHandler.overall_view_refresher(this);
-			startThreadIfPossible();
-		}
 	}
 	
 	private void initComponents() {
@@ -73,6 +66,8 @@ public class DataSetNode extends JPanel {
 	}
 
 	private void refreshTable() {
+		if (dataset == null) return;
+		if (dataset.getFileName().isEmpty()) return;
 		lootTable.setModel(TableHandler.getLootModel(dataset.getFileName()));
 		playerTable.setModel(TableHandler.getPlayerStatModel(dataset.getFileName()));
 	}
@@ -102,33 +97,12 @@ public class DataSetNode extends JPanel {
 		playerTable.resetTable();
 		setBorder(BorderFactory.createTitledBorder("No file selected yet."));
 	}
-	
-	public synchronized void shutdownThreadIfPossible() {
-		if (getThread() != null && getThread().isAlive()) {
-			try {
-				Logger.log(this, "Closing Thread");
-				ThreadHandler.overall_view_refresher = false;
-				getThread().interrupt();
-				getThread().join();
-				Logger.log(this, "Thread Is Closed");
-			} catch (InterruptedException e1) {
-				Logger.log(this, "Thread Has Crashed");
-			}
-		}
+
+	public boolean isActive() {
+		return isActive;
 	}
-	
-	public synchronized void startThreadIfPossible() {
-		if (getThread() != null && getThread().isAlive())
-			return;
-		
-		Logger.log(this, "Starting Thread");
-		
-		thread = ThreadHandler.overall_view_refresher(this);
-		thread.start();
+
+	public void setActive(boolean active) {
+		isActive = active;
 	}
-	
-	public Thread getThread() {
-		return thread;
-	}
-	
 }

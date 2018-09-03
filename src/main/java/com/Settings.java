@@ -10,7 +10,7 @@ public class Settings {
 	public static final String APP_NAME = "EVE Fleet History Compressor";
 	public static final String ERR_LOG_LOCATION = System.getProperty("user.home") + "\\Desktop\\EVE_ERROR_LOG.txt";
 	
-	public static final double File_Transporter_EVE_to_Unfinished_Thread_Speed = 1; //1sec
+	public static final long MAIN_THREAD_SPEED = 10;
 	
 	public static final String[] Player_Table_Header_Names = { "Character", "Earned", "%" };
 	public static final String[] Regular_Loot_Table_Header_Names = { "Character", "Item Type", "Quantity", "Est. Market", "Total Market" };
